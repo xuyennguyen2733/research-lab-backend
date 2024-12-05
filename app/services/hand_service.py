@@ -10,7 +10,7 @@ def store_hand_data(hand_data: HandData):
     hand_landmarks_array = np.array(hand_data.landmarks)
     
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    filename = os.path.join(path,f"{timestamp}.npy")
+    filename = os.path.join(path,f"{timestamp}_{hand_data.index}.npy")
     
     np.save(filename, hand_landmarks_array)
     

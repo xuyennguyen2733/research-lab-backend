@@ -4,5 +4,6 @@ from typing import List
 
 class HandData(BaseModel):
     label: str
-    landmarks: List[List[float]] # [frames][fingers][x and y coordinates]
+    landmarks: List[List[List[float]]] # [frames][fingers][x and y coordinates]
+    index: int
     
