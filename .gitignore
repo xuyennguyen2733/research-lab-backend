@@ -1,0 +1,59 @@
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Distribution / packaging
+*.egg-info/
+build/
+dist/
+
+# Logs
+*.log
+logs/
+
+# Database
+*.sqlite3
+*.db
+*.npy
+
+# Environment variables
+.env
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Cache and temporary files
+*.tmp
+*.cache
+*.lock
+*.bak
+*.orig
+
+# Pytest cache
+.pytest_cache/
+
+# Mypy
+.mypy_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# FastAPI static files (if dynamically generated)
+staticfiles/
+
+data/
