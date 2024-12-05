@@ -1,0 +1,72 @@
+# Getting Started
+
+1. Create a python virtual environment using a tool of your choice and activate it
+2. Install uvicorn and fastapi using pip
+3. Create the following inside your backend folder:
+
+fastapi-backend/
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+├── requirements.txt
+
+4. Inside main.py, add the following
+
+from fastapi import FastAPI
+
+app = FastAPI()  # Create a FastAPI app instance
+
+from fastapi import FastAPI
+
+app = FastAPI()  # Create a FastAPI app instance
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to your FastAPI app!"}
+
+5. Run the app in the terminal
+
+RUN uvicorn app.main:app --reload
+
+When navigating the url (usually http://127.0.0.1:8000) in the web browser, you should see:
+
+{"message":"Welcome to your FastAPI app!"}
+
+# Create apis
+
+1. In more complicated projects, apis will be stored in separate files:
+
+app/
+|--__init__.py
+|--main.py
+|--api/
+|  |--__init__.py
+|  |--hand.py
+|  |...
+
+2. To connect apis in the api folders to the main app
+
+- In the api file (example: hand.py):
+
+from fastapi import APIRouter, HTTPException
+
+router = APIRouter()
+
+@router.get("/collect", response_model=dict)
+async def collect_hand_data(hand_data: any):
+   try:
+        return {"status": 200}
+   except Exception as e:
+        raise HTTPException(status_code=500, detail="failed")
+        
+- In main.py:
+
+from app.api import hand
+...
+app = FastAPI()  # Create a FastAPI app instance
+
+app.include_router(hand.router, prefix="/hands", tags=["hands"])
+
+...
+
+- Once the above setup is done, the api `http://127.0.0.1:8000/hands/collect` is created.
