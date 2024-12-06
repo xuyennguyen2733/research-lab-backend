@@ -1,0 +1,37 @@
+ Context 
+For our Signable web application, we want to evaluate signs in the frontend for better performance. To achieve this, we need to convert the keras model to tensorflowjs model. However, the conversion process fails because the package tensorflow_decision_forest isn’t supported in Windows. Therefore, if we are to convert our model on a Windows machine, we must do it via Windows Subsystem for Linux (WSL).
+
+Getting Started
+Open Windows PowerShell
+Install WSL using the command: wsl –install
+Install a specific distribution using the command: wsl -–install -d <distribution-name> (in this case I installed Ubuntu)
+If installation fails, you may need to update wsl: wsl –update, then try again
+Navigate to the project directory: cd /mnt/c/<the-rest-of-the-path> (notice that in wsl, C: is mounted to /mnt/c)
+Install a virtual environment: python3 -m venv <my-venv-name>
+In my case it’s ASLModelTraining. If you see this file already in the repo you don’t have to create another.
+If installation fails because ensurepip is not available, run the follow commands to install the python3-venv package:
+sudo apt update
+sudo apt install python3-dev python3-venv
+Now run this command again and it should work: python3 -m venv <my-venv-name>
+Activate the environment: source <my-venv-name>/bin/activate
+
+Installing Dependencies
+Install pip: sudo apt install python3-pip
+Install tensorflowjs: pip install tensorflowjs
+Double check that the package is there: pip list and look for tensorflowjs
+
+Convert the model: tensorflowjs_converter \ --input_format=keras \ --output_node_names=<output_name> \ <path/to/keras/model.keras \ <path/to/output/directory
+
+You can also run the script to train and export tfjs models directly if the command above doesn’t work.
+	
+Potential Errors
+At first, I got the error “tensorflowjs_converter: command not found”, although tensorflowjs shows up on the list when I ran pip list
+I tried re-installing tensorflowjs using a different command: python3 -m pip install tensorflowjs, only to run into error with pip. I had to run these command to install pip correctly:
+	curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+	python3 get-pip.py
+Now that pip is installed correctly, I upgrade it and install tensorflowjs again:
+	python3 -m pip install –upgrade pip
+	python3 -m pip install tensorflowjs
+And check to make sure tensorflowjs_converter is recognized:
+	tensorflowjs_converter –version
+Now, run step 4 in Installing Dependencies again.
